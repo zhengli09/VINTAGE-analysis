@@ -1,11 +1,80 @@
 ---
-title: "Home"
+title: "VINTAGE Tutorial"
+author: "Zheng Li"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
+    df_print: paged
 editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# 1.Introduction
+In this tutorial, we illustrate the use of VINTAGE through the integrative analysis of two datasets: a large scale cis-eQTL study from [eQTLGen](https://www.eqtlgen.org/phase1.html) phase I and a genome-wide association study conducted in [UK Biobank](https://www.ukbiobank.ac.uk/). The data we use are both in the form of summary statistics and are publicly available. For this tutorial, we will focus on analyzing the genes on chromosome 22 and their relationship to systolic blood pressure. In addition, we obtain the genotype data of 503 European individuals from the [1000 Genomes Project](https://www.internationalgenome.org/) phase 3 to serve as the linkage disequilibrium (LD) reference panel. We also obtain the gene annotation information from [GENCODE](https://www.gencodegenes.org/). The specific files we use and the corresponding links for download are summarized in the following:
+
+1. [eQTL Summary Statistics](https://www.eqtlgen.org/cis-eqtls.html): Full cis-eQTL summary statistics
+2. [GWAS Summary Statistics](https://docs.google.com/spreadsheets/d/1kvPoupSzsSFBNSztMzl04xMoSC3Kcx3CrjVf4yBmESU/edit?pli=1#gid=178908679): Data for phenotype code "4080_irnt" and both sexes
+3. [LD Reference Panel](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/): Genotype data for chromosome 22 and sample demographics
+4. [Gene Annotations](https://www.gencodegenes.org/human/release_40lift37.html): GRCh37 version of Release 40
+ 
+# 2.Data pre-processing
+In this step, we pre-process the four input files. For eQTL summary statistics, the minimally required information includes the gene ID, variant ID, variant chromosome, variant genomic position, effect allele, other allele, z-score from the single-variant association analysis, and the sample size. For GWAS summary statistics, the minimally required information includes the variant ID, effect allele, other allele, variant chromosome, variant genomic position, z-score from the single-variant association analysis, and the sample size. We further filter out variants that have a minor allele frequency (MAF) < 1%. For the LD reference panel, we extract genotype data of 503 European individuals and exclude variants that have a MAF < 5%. We focus our analysis on biallelic SNPs. The LD reference panel is stored in the plink bim/bed/fam format. Lastly, we extract the chromosome, transcription start site (TSS), and transcription end site (TES) of each protein-coding gene from the GENCODE. The detailed processing steps can be found in the scripts `1_proc_eQTL.R`, `2_proc_GWAS.R`, `3_proc_LD_ref.R`, and `4_proc_gene_annot.R` at the [code directory](https://github.com/zhengli09/VINTAGE-Analysis/tree/master/data).
+
+```{r}
+# step 1: specify the input files
+eqtl_file <- "2019-12-11-cis-eQTLsFDR-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz"
+gwas_file <- "4080_irnt.gwas.imputed_v3.both_sexes.tsv.bgz"
+ld_ref_file <- "ALL.chr22.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz"
+ld_demo <- "integrated_call_samples_v3.20130502.ALL.panel"
+gencode_file <- "gencode.v40lift37.annotation.gtf.gz"
+```
+```{r, eval = FALSE}
+# step 2: pre-process input data
+chr <- 22
+system(paste("Rscript code/1_proc_eQTL.R", eqtl_file, chr)) # eQTL
+system(paste("Rscript code/2_proc_GWAS.R", gwas_file, chr)) # GWAS
+system(paste("Rscript code/3_proc_LD_ref.R", ld_ref_file)) # LD Reference
+system(paste("Rscript code/4_proc_gene_annot.R", gencode_file, chr)) # Gene Annotation
+```
+```{r}
+# step 3: load processed data
+library(bigreadr)
+eqtl <- fread2("output/eQTL_chr22_processed.txt.gz")
+gwas <- fread2("output/GWAS_chr22_processed.txt.gz")
+ld_ref_path <- "output/LD_1kg_chr22_processed.bed"
+gencode <- fread2("output/GENCODE_v40_chr22.txt")
+# find the common set of genes between eqtl and gencode
+gencode <- subset(gencode, gene_id %in% unique(eqtl$gene))
+```
+
+
+Let's take a look at each processed file so that you have a brief idea of what we are dealing with.
+```{r, cols.print=8}
+head(eqtl)
+head(gwas)
+head(gencode)
+```
+
+# 3.Run VINTAGE
+The core function of VINTAGE is `run_vintage`. For a detailed description of all the input parameters and output values, please refer to its documentation by typing `?run_vintage` in R. Briefly, `run_vintage` starts by loading all necessary data and filtering out genetic variants that have a MAF below a certain threshold (default is 5%) in the LD reference panel and that are strand ambiguous. The function then proceeds to analyze one gene at a time. In the analysis of each gene, `run_vintage` extracts variants in the genic and adjacent regulatory regions of the gene, merges the eQTL, GWAS, and LD panel data based on the order of effect allele and other allele in the LD panel, filters out variants with a potential LD mismatch between the eQTL/GWAS data and the LD panel, and eventually performs the genetic variance and correlation tests. We analyze five genes as an example and the results will be written to an output file specified by `outfile`. `ncores` represents the number of CPUs to use and the number of genes we simultaneously analyze. In practice, `ncores` can be set to a relatively large value (e.g., 10) depending on your hardware. 
+
+```{r, warning=FALSE, results='hold'}
+library(VINTAGE)
+outfile <- "output/results/SBP_chr22.txt"
+example_genes <- c("TANGO2", "WBP2NL", "TRIOBP", "ARVCF", "SMDT1")
+idx <- match(example_genes, gencode$gene_name)
+run_vintage(eqtl = eqtl, gwas = gwas, refpath = ld_ref_path, 
+  gene_info = gencode[idx, ], outfile = outfile, ncores = 1, 
+  debug = FALSE)
+```
+
+# 4.Results
+The detailed explanation to all the output information can be found in the documentation of the `run_vintage` function. In particular, `r` represents the local genetic correlation estimate, `vin_var_test` represents the p value from the gene-wise genetic variance test, and `vin_corr_test` represents the p value from the gene-wise genetic correlation test and would be reported to be NA if the p value from the variance test did not pass the specified threshold. 
+```{r}
+results <- read.table(outfile, header = T)
+results
+```
+
+

@@ -1,14 +1,16 @@
 name: "VINTAGE-analysis"
 output_dir: ../docs
 navbar:
-  title: "VINTAGE-analysis"
+  title: VINTAGE
   left:
-  - text: Home
+  - text: Tutorial
     href: index.html
-  - text: About
-    href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/zhengli09//VINTAGE
 output:
   workflowr::wflow_html:
     toc: yes
