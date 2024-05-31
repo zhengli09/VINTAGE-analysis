@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Zheng Li" />
+
+<meta name="date" content="2024-05-31" />
+
+<title>VINTAGE Tutorial</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">VINTAGE</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Tutorial</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zhengli09//VINTAGE">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">VINTAGE Tutorial</h1>
+<h4 class="author">Zheng Li</h4>
+<h4 class="date">2024-05-31</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-05-31
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>VINTAGE-analysis/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240529code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240529)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240529code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240529)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong91e8d0e">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 91e8d0e
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong91e8d0e"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 91e8d0e.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Untracked files:
+    Untracked:  data/2019-12-11-cis-eQTLsFDR-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz
+    Untracked:  data/4080_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+    Untracked:  data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz
+    Untracked:  data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz.tbi
+    Untracked:  data/gencode.v40lift37.annotation.gtf.gz
+    Untracked:  data/integrated_call_samples_v3.20130502.ALL.panel
+    Untracked:  output/1kg_eur_smps.txt
+    Untracked:  output/GENCODE_v40_chr22.txt
+    Untracked:  output/GWAS_chr22_processed.txt.gz
+    Untracked:  output/LD_1kg_chr22_processed.bed
+    Untracked:  output/LD_1kg_chr22_processed.bim
+    Untracked:  output/LD_1kg_chr22_processed.bk
+    Untracked:  output/LD_1kg_chr22_processed.fam
+    Untracked:  output/LD_1kg_chr22_processed.log
+    Untracked:  output/LD_1kg_chr22_processed.rds
+    Untracked:  output/eQTL_chr22_processed.txt.gz
+    Untracked:  output/results/
+
+Unstaged changes:
+    Deleted:    analysis/about.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
+(<code>docs/index.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+91e8d0e
+</td>
+<td>
+zhengli09
+</td>
+<td>
+2024-05-31
+</td>
+<td>
+Publish the initial files for myproject
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+a7bea0c
+</td>
+<td>
+zhengli09
+</td>
+<td>
+2024-05-29
+</td>
+<td>
+Start workflowr project.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>1.Introduction</h1>
+<p>In this tutorial, we illustrate the use of VINTAGE through the
+integrative analysis of two datasets: a large scale cis-eQTL study from
+<a href="https://www.eqtlgen.org/phase1.html">eQTLGen</a> phase I and a
+genome-wide association study conducted in <a
+href="https://www.ukbiobank.ac.uk/">UK Biobank</a>. The data we use are
+both in the form of summary statistics and are publicly available. For
+this tutorial, we will focus on analyzing the genes on chromosome 22 and
+their relationship to systolic blood pressure. In addition, we obtain
+the genotype data of 503 European individuals from the <a
+href="https://www.internationalgenome.org/">1000 Genomes Project</a>
+phase 3 to serve as the linkage disequilibrium (LD) reference panel. We
+also obtain the gene annotation information from <a
+href="https://www.gencodegenes.org/">GENCODE</a>. The specific files we
+use and the corresponding links for download are summarized in the
+following:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.eqtlgen.org/cis-eqtls.html">eQTL Summary
+Statistics</a>: Full cis-eQTL summary statistics</li>
+<li><a
+href="https://docs.google.com/spreadsheets/d/1kvPoupSzsSFBNSztMzl04xMoSC3Kcx3CrjVf4yBmESU/edit?pli=1#gid=178908679">GWAS
+Summary Statistics</a>: Data for phenotype code “4080_irnt” and both
+sexes</li>
+<li><a
+href="http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/">LD
+Reference Panel</a>: Genotype data for chromosome 22 and sample
+demographics</li>
+<li><a
+href="https://www.gencodegenes.org/human/release_40lift37.html">Gene
+Annotations</a>: GRCh37 version of Release 40</li>
+</ol>
+</div>
+<div id="data-pre-processing" class="section level1">
+<h1>2.Data pre-processing</h1>
+<p>In this step, we pre-process the four input files. For eQTL summary
+statistics, the minimally required information includes the gene ID,
+variant ID, variant chromosome, variant genomic position, effect allele,
+other allele, z-score from the single-variant association analysis, and
+the sample size. For GWAS summary statistics, the minimally required
+information includes the variant ID, effect allele, other allele,
+variant chromosome, variant genomic position, z-score from the
+single-variant association analysis, and the sample size. We further
+filter out variants that have a minor allele frequency (MAF) &lt; 1%.
+For the LD reference panel, we extract genotype data of 503 European
+individuals and exclude variants that have a MAF &lt; 5%. We focus our
+analysis on biallelic SNPs. The LD reference panel is stored in the
+plink bim/bed/fam format. Lastly, we extract the chromosome,
+transcription start site (TSS), and transcription end site (TES) of each
+protein-coding gene from the GENCODE. The detailed processing steps can
+be found in the scripts <code>1_proc_eQTL.R</code>,
+<code>2_proc_GWAS.R</code>, <code>3_proc_LD_ref.R</code>, and
+<code>4_proc_gene_annot.R</code> at the <a
+href="https://github.com/zhengli09/VINTAGE-Analysis/tree/master/data">code
+directory</a>.</p>
+<pre class="r"><code># step 1: specify the input files
+eqtl_file &lt;- &quot;2019-12-11-cis-eQTLsFDR-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz&quot;
+gwas_file &lt;- &quot;4080_irnt.gwas.imputed_v3.both_sexes.tsv.bgz&quot;
+ld_ref_file &lt;- &quot;ALL.chr22.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz&quot;
+ld_demo &lt;- &quot;integrated_call_samples_v3.20130502.ALL.panel&quot;
+gencode_file &lt;- &quot;gencode.v40lift37.annotation.gtf.gz&quot;</code></pre>
+<pre class="r"><code># step 2: pre-process input data
+chr &lt;- 22
+system(paste(&quot;Rscript code/1_proc_eQTL.R&quot;, eqtl_file, chr)) # eQTL
+system(paste(&quot;Rscript code/2_proc_GWAS.R&quot;, gwas_file, chr)) # GWAS
+system(paste(&quot;Rscript code/3_proc_LD_ref.R&quot;, ld_ref_file)) # LD Reference
+system(paste(&quot;Rscript code/4_proc_gene_annot.R&quot;, gencode_file, chr)) # Gene Annotation</code></pre>
+<pre class="r"><code># step 3: load processed data
+library(bigreadr)
+eqtl &lt;- fread2(&quot;output/eQTL_chr22_processed.txt.gz&quot;)
+gwas &lt;- fread2(&quot;output/GWAS_chr22_processed.txt.gz&quot;)
+ld_ref_path &lt;- &quot;output/LD_1kg_chr22_processed.bed&quot;
+gencode &lt;- fread2(&quot;output/GENCODE_v40_chr22.txt&quot;)
+# find the common set of genes between eqtl and gencode
+gencode &lt;- subset(gencode, gene_id %in% unique(eqtl$gene))</code></pre>
+<p>Let’s take a look at each processed file so that you have a brief
+idea of what we are dealing with.</p>
+<pre class="r"><code>head(eqtl)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["gene"],"name":[1],"type":["chr"],"align":["left"]},{"label":["variant"],"name":[2],"type":["chr"],"align":["left"]},{"label":["chr"],"name":[3],"type":["int"],"align":["right"]},{"label":["pos"],"name":[4],"type":["int"],"align":["right"]},{"label":["effect_allele"],"name":[5],"type":["chr"],"align":["left"]},{"label":["other_allele"],"name":[6],"type":["chr"],"align":["left"]},{"label":["zscore"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["N"],"name":[8],"type":["int"],"align":["right"]}],"data":[{"1":"ENSG00000100376","2":"22:45728978:C:G","3":"22","4":"45728978","5":"G","6":"C","7":"161.9513","8":"31569","_rn_":"1"},{"1":"ENSG00000100376","2":"22:45711854:A:G","3":"22","4":"45711854","5":"G","6":"A","7":"161.8484","8":"31684","_rn_":"2"},{"1":"ENSG00000100376","2":"22:45731539:T:C","3":"22","4":"45731539","5":"C","6":"T","7":"161.6378","8":"31568","_rn_":"3"},{"1":"ENSG00000100376","2":"22:45726345:G:A","3":"22","4":"45726345","5":"A","6":"G","7":"161.6275","8":"31567","_rn_":"4"},{"1":"ENSG00000100376","2":"22:45742760:G:A","3":"22","4":"45742760","5":"A","6":"G","7":"161.5742","8":"31683","_rn_":"5"},{"1":"ENSG00000100376","2":"22:45736153:A:G","3":"22","4":"45736153","5":"G","6":"A","7":"161.5237","8":"31683","_rn_":"6"}],"options":{"columns":{"min":{},"max":[8]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>head(gwas)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["variant"],"name":[1],"type":["chr"],"align":["left"]},{"label":["chr"],"name":[2],"type":["int"],"align":["right"]},{"label":["pos"],"name":[3],"type":["int"],"align":["right"]},{"label":["effect_allele"],"name":[4],"type":["chr"],"align":["left"]},{"label":["other_allele"],"name":[5],"type":["chr"],"align":["left"]},{"label":["zscore"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["N"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"22:16464274:A:C","2":"22","3":"16464274","4":"C","5":"A","6":"-0.298459","7":"340159","_rn_":"1"},{"1":"22:16488635:C:A","2":"22","3":"16488635","4":"A","5":"C","6":"-0.782416","7":"340159","_rn_":"2"},{"1":"22:16488702:G:C","2":"22","3":"16488702","4":"C","5":"G","6":"-0.683113","7":"340159","_rn_":"3"},{"1":"22:16495833:C:A","2":"22","3":"16495833","4":"A","5":"C","6":"-0.868275","7":"340159","_rn_":"4"},{"1":"22:16498458:G:A","2":"22","3":"16498458","4":"A","5":"G","6":"-0.850372","7":"340159","_rn_":"5"},{"1":"22:16869223:G:A","2":"22","3":"16869223","4":"A","5":"G","6":"-0.598212","7":"340159","_rn_":"6"}],"options":{"columns":{"min":{},"max":[8]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>head(gencode)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["gene_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gene_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["gene_type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["chrom"],"name":[4],"type":["int"],"align":["right"]},{"label":["start"],"name":[5],"type":["int"],"align":["right"]},{"label":["end"],"name":[6],"type":["int"],"align":["right"]},{"label":["strand"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"ENSG00000172967","2":"XKR3","3":"protein_coding","4":"22","5":"17264302","6":"17306301","7":"-","_rn_":"4"},{"1":"ENSG00000215568","2":"GAB4","3":"protein_coding","4":"22","5":"17442826","6":"17489112","7":"-","_rn_":"5"},{"1":"ENSG00000177663","2":"IL17RA","3":"protein_coding","4":"22","5":"17565844","6":"17596583","7":"+","_rn_":"6"},{"1":"ENSG00000183307","2":"TMEM121B","3":"protein_coding","4":"22","5":"17597187","6":"17602257","7":"-","_rn_":"7"},{"1":"ENSG00000069998","2":"HDHD5","3":"protein_coding","4":"22","5":"17618401","6":"17646177","7":"-","_rn_":"8"},{"1":"ENSG00000093072","2":"ADA2","3":"protein_coding","4":"22","5":"17659680","6":"17739125","7":"-","_rn_":"9"}],"options":{"columns":{"min":{},"max":[8]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="run-vintage" class="section level1">
+<h1>3.Run VINTAGE</h1>
+<p>The core function of VINTAGE is <code>run_vintage</code>. For a
+detailed description of all the input parameters and output values,
+please refer to its documentation by typing <code>?run_vintage</code> in
+R. Briefly, <code>run_vintage</code> starts by loading all necessary
+data and filtering out genetic variants that have a MAF below a certain
+threshold (default is 5%) in the LD reference panel and that are strand
+ambiguous. The function then proceeds to analyze one gene at a time. In
+the analysis of each gene, <code>run_vintage</code> extracts variants in
+the genic and adjacent regulatory regions of the gene, merges the eQTL,
+GWAS, and LD panel data based on the order of effect allele and other
+allele in the LD panel, filters out variants with a potential LD
+mismatch between the eQTL/GWAS data and the LD panel, and eventually
+performs the genetic variance and correlation tests. We analyze five
+genes as an example and the results will be written to an output file
+specified by <code>outfile</code>. <code>ncores</code> represents the
+number of CPUs to use and the number of genes we simultaneously analyze.
+In practice, <code>ncores</code> can be set to a relatively large value
+(e.g., 10) depending on your hardware.</p>
+<pre class="r"><code>library(VINTAGE)
+outfile &lt;- &quot;output/results/SBP_chr22.txt&quot;
+example_genes &lt;- c(&quot;TANGO2&quot;, &quot;WBP2NL&quot;, &quot;TRIOBP&quot;, &quot;ARVCF&quot;, &quot;SMDT1&quot;)
+idx &lt;- match(example_genes, gencode$gene_name)
+run_vintage(eqtl = eqtl, gwas = gwas, refpath = ld_ref_path, 
+  gene_info = gencode[idx, ], outfile = outfile, ncores = 1, 
+  debug = FALSE)</code></pre>
+<pre><code>***** Load LD reference data in plink format *****
+***** Exclude strand ambiguous variants (eQTL, GWAS, LD) *****
+(eQTL) 429859/3807663 (11%) ambiguous variants identified
+(GWAS) 16542/128732 (13%) ambiguous variants identified
+(LD) 12448/85250 (15%) ambiguous variants identified
+(1/5) Handling gene: ENSG00000183597 (20004537-20054687)
+  - Merge three datasets (LD, eQTL, and GWAS)
+  - Filter out variants that have LD mismatch
+(2/5) Handling gene: ENSG00000183066 (42394729-42454460)
+  - Merge three datasets (LD, eQTL, and GWAS)
+  - Filter out variants that have LD mismatch
+(3/5) Handling gene: ENSG00000100106 (38093055-38172563)
+  - Merge three datasets (LD, eQTL, and GWAS)
+  - Filter out variants that have LD mismatch
+(4/5) Handling gene: ENSG00000099889 (19957419-20004346)
+  - Merge three datasets (LD, eQTL, and GWAS)
+  - Filter out variants that have LD mismatch
+(5/5) Handling gene: ENSG00000183172 (42475695-42480288)
+  - Merge three datasets (LD, eQTL, and GWAS)
+  - Filter out variants that have LD mismatch</code></pre>
+</div>
+<div id="results" class="section level1">
+<h1>4.Results</h1>
+<p>The detailed explanation to all the output information can be found
+in the documentation of the <code>run_vintage</code> function. In
+particular, <code>r</code> represents the local genetic correlation
+estimate, <code>vin_var_test</code> represents the p value from the
+gene-wise genetic variance test, and <code>vin_corr_test</code>
+represents the p value from the gene-wise genetic correlation test and
+would be reported to be NA if the p value from the variance test did not
+pass the specified threshold.</p>
+<pre class="r"><code>results &lt;- read.table(outfile, header = T)
+results</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["gene"],"name":[1],"type":["chr"],"align":["left"]},{"label":["start"],"name":[2],"type":["int"],"align":["right"]},{"label":["end"],"name":[3],"type":["int"],"align":["right"]},{"label":["window"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[5],"type":["int"],"align":["right"]},{"label":["k"],"name":[6],"type":["int"],"align":["right"]},{"label":["s1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["s2"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["h1_init"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["h2_init"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["h1"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["h2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["r"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["sigma1_sq"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["sigma2_sq"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval00"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval01"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval02"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval03"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval04"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval05"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval06"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval07"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval08"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval09"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval10"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["vin_var_test"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["vin_corr_test"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["skat"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["time"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"ENSG00000183597","2":"20004537","3":"20054687","4":"1e+05","5":"540","6":"70","7":"0.09789289","8":"0.002183079","9":"0.072845255","10":"2.932089e-04","11":"0.075902316","12":"3.244911e-04","13":"0.6582394","14":"0.9525188","15":"0.9997870","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000000","26":"0.000003","27":"1.000000e-06","28":"0.01323238","29":"1.657486e-07","30":"8.672500"},{"1":"ENSG00000183066","2":"42394729","3":"42454460","4":"1e+05","5":"404","6":"33","7":"0.05376159","8":"0.002760461","9":"0.003576574","10":"8.294245e-05","11":"0.003345243","12":"5.505347e-05","13":"0.8185082","14":"0.9955632","15":"0.9999213","16":"1.2e-05","17":"7e-06","18":"6e-06","19":"5e-06","20":"3e-06","21":"2e-06","22":"1e-06","23":"0.0e+00","24":"0.000001","25":"0.000002","26":"0.000017","27":"1.000000e-06","28":"0.12723040","29":"8.361962e-06","30":"6.029745"},{"1":"ENSG00000100106","2":"38093055","3":"38172563","4":"1e+05","5":"306","6":"33","7":"0.07543273","8":"0.004017164","9":"0.182403345","10":"1.644721e-04","11":"0.183774438","12":"1.192966e-04","13":"-0.5358168","14":"0.8424779","15":"0.9998876","16":"5.0e-06","17":"4e-06","18":"4e-06","19":"2e-06","20":"1e-06","21":"0e+00","22":"2e-06","23":"2.0e-06","24":"0.000002","25":"0.000002","26":"0.000010","27":"1.000000e-06","28":"0.18520849","29":"6.061347e-06","30":"3.937670"},{"1":"ENSG00000099889","2":"19957419","3":"20004346","4":"1e+05","5":"557","6":"78","7":"0.07523664","8":"0.002473111","9":"0.032550437","10":"2.179089e-04","11":"0.033018060","12":"2.157304e-04","13":"0.4148772","14":"0.9821839","15":"0.9998227","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000002","26":"0.000105","27":"1.000000e-06","28":"0.26526848","29":"5.454176e-07","30":"10.116671"},{"1":"ENSG00000183172","2":"42475695","3":"42480288","4":"1e+05","5":"176","6":"19","7":"0.07798482","8":"0.001976531","9":"0.204283762","10":"1.163780e-04","11":"0.209322404","12":"1.265416e-04","13":"0.3174182","14":"0.6917252","15":"0.9999105","16":"1.0e-06","17":"1e-06","18":"1e-06","19":"1e-06","20":"2e-06","21":"3e-06","22":"7e-06","23":"3.6e-05","24":"0.000332","25":"0.003488","26":"0.038664","27":"2.196796e-06","28":"0.38291784","29":"1.880965e-06","30":"2.199980"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3;  LAPACK version 3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: $( cat /etc/timezone )
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] VINTAGE_0.1.008 bigreadr_0.2.5  workflowr_1.7.1
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.4       xfun_0.41          bslib_0.6.1        ggplot2_3.4.4     
+ [5] SPAtest_3.1.2      processx_3.8.3     lattice_0.22-5     callr_3.7.3       
+ [9] bigassertr_0.1.6   vctrs_0.6.5        tools_4.4.0        ps_1.7.5          
+[13] generics_0.1.3     parallel_4.4.0     tibble_3.2.1       fansi_1.0.6       
+[17] pkgconfig_2.0.3    R.oo_1.25.0        Matrix_1.6-4       data.table_1.14.10
+[21] bigstatsr_1.5.12   rngtools_1.5.2     lifecycle_1.0.4    compiler_4.4.0    
+[25] stringr_1.5.1      git2r_0.33.0       munsell_0.5.0      bigparallelr_0.3.2
+[29] getPass_0.2-4      codetools_0.2-19   httpuv_1.6.13      htmltools_0.5.7   
+[33] sass_0.4.8         yaml_2.3.8         crayon_1.5.2       later_1.3.2       
+[37] pillar_1.9.0       jquerylib_0.1.4    whisker_0.4.1      R.utils_2.12.3    
+[41] cachem_1.0.8       doRNG_1.8.6        iterators_1.0.14   foreach_1.5.2     
+[45] RSpectra_0.16-1    parallelly_1.36.0  tidyselect_1.2.0   digest_0.6.33     
+[49] stringi_1.8.3      dplyr_1.1.4        cowplot_1.1.2      rprojroot_2.0.4   
+[53] fastmap_1.1.1      grid_4.4.0         colorspace_2.1-0   cli_3.6.2         
+[57] magrittr_2.0.3     ACAT_0.91          utf8_1.2.4         scales_1.3.0      
+[61] promises_1.2.1     SKAT_2.2.5         rmarkdown_2.25     httr_1.4.7        
+[65] bigsparser_0.6.1   matrixStats_1.2.0  rmio_0.4.0         bit_4.0.5         
+[69] R.methodsS3_1.8.2  evaluate_0.23      ff_4.0.9           knitr_1.45        
+[73] doParallel_1.0.17  irlba_2.3.5.1      rlang_1.1.2        mixsqp_0.3-54     
+[77] Rcpp_1.0.12        glue_1.6.2         susieR_0.12.35     reshape_0.8.9     
+[81] rstudioapi_0.15.0  jsonlite_1.8.8     plyr_1.8.9         R6_2.5.1          
+[85] bigsnpr_1.12.2     fs_1.6.3           flock_0.7         </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
