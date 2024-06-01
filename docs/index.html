@@ -11,7 +11,7 @@
 
 <meta name="author" content="Zheng Li" />
 
-<meta name="date" content="2024-05-31" />
+<meta name="date" content="2024-06-01" />
 
 <title>VINTAGE Tutorial</title>
 
@@ -343,7 +343,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/zhengli09//VINTAGE">
+  <a href="https://github.com/zhengli09//VINTAGE-analysis">
     <span class="fab fa-github"></span>
      
     Source code
@@ -360,7 +360,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">VINTAGE Tutorial</h1>
 <h4 class="author">Zheng Li</h4>
-<h4 class="date">2024-05-31</h4>
+<h4 class="date">2024-06-01</h4>
 
 </div>
 
@@ -389,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-05-31
+<strong>Last updated:</strong> 2024-06-01
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -520,13 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong91e8d0e">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzhengli09VINTAGEanalysistree1615f2f2137b88fc5e2dcda55d8e8046dbb5ef75targetblank1615f2fa">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 91e8d0e
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/zhengli09//VINTAGE-analysis/tree/1615f2f2137b88fc5e2dcda55d8e8046dbb5ef75" target="_blank">1615f2f</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong91e8d0e"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomzhengli09VINTAGEanalysistree1615f2f2137b88fc5e2dcda55d8e8046dbb5ef75targetblank1615f2fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -535,7 +537,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 91e8d0e.
+The results in this page were generated with repository version
+<a href="https://github.com/zhengli09//VINTAGE-analysis/tree/1615f2f2137b88fc5e2dcda55d8e8046dbb5ef75" target="_blank">1615f2f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -619,7 +622,41 @@ Message
 Rmd
 </td>
 <td>
-91e8d0e
+<a href="https://github.com/zhengli09//VINTAGE-analysis/blob/1615f2f2137b88fc5e2dcda55d8e8046dbb5ef75/analysis/index.Rmd" target="_blank">1615f2f</a>
+</td>
+<td>
+zhengli09
+</td>
+<td>
+2024-06-01
+</td>
+<td>
+Update code directory
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zhengli09//VINTAGE-analysis/903d86a2f598d6346800427299b4f08e39b74e28/docs/index.html" target="_blank">903d86a</a>
+</td>
+<td>
+zhengli09
+</td>
+<td>
+2024-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zhengli09//VINTAGE-analysis/blob/91e8d0e6f1a6c5fcd33306cc8797b15ef38bd2a5/analysis/index.Rmd" target="_blank">91e8d0e</a>
 </td>
 <td>
 zhengli09
@@ -636,7 +673,7 @@ Publish the initial files for myproject
 Rmd
 </td>
 <td>
-a7bea0c
+<a href="https://github.com/zhengli09//VINTAGE-analysis/blob/a7bea0c668805ba662b19e73da0301448c6a9245/analysis/index.Rmd" target="_blank">a7bea0c</a>
 </td>
 <td>
 zhengli09
@@ -708,7 +745,7 @@ protein-coding gene from the GENCODE. The detailed processing steps can
 be found in the scripts <code>1_proc_eQTL.R</code>,
 <code>2_proc_GWAS.R</code>, <code>3_proc_LD_ref.R</code>, and
 <code>4_proc_gene_annot.R</code> at the <a
-href="https://github.com/zhengli09/VINTAGE-Analysis/tree/master/data">code
+href="https://github.com/zhengli09/VINTAGE-analysis/tree/master/code">code
 directory</a>.</p>
 <pre class="r"><code># step 1: specify the input files
 eqtl_file &lt;- &quot;2019-12-11-cis-eQTLsFDR-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz&quot;
@@ -813,7 +850,7 @@ pass the specified threshold.</p>
 results</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["gene"],"name":[1],"type":["chr"],"align":["left"]},{"label":["start"],"name":[2],"type":["int"],"align":["right"]},{"label":["end"],"name":[3],"type":["int"],"align":["right"]},{"label":["window"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[5],"type":["int"],"align":["right"]},{"label":["k"],"name":[6],"type":["int"],"align":["right"]},{"label":["s1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["s2"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["h1_init"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["h2_init"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["h1"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["h2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["r"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["sigma1_sq"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["sigma2_sq"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval00"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval01"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval02"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval03"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval04"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval05"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval06"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval07"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval08"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval09"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval10"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["vin_var_test"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["vin_corr_test"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["skat"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["time"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"ENSG00000183597","2":"20004537","3":"20054687","4":"1e+05","5":"540","6":"70","7":"0.09789289","8":"0.002183079","9":"0.072845255","10":"2.932089e-04","11":"0.075902316","12":"3.244911e-04","13":"0.6582394","14":"0.9525188","15":"0.9997870","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000000","26":"0.000003","27":"1.000000e-06","28":"0.01323238","29":"1.657486e-07","30":"8.672500"},{"1":"ENSG00000183066","2":"42394729","3":"42454460","4":"1e+05","5":"404","6":"33","7":"0.05376159","8":"0.002760461","9":"0.003576574","10":"8.294245e-05","11":"0.003345243","12":"5.505347e-05","13":"0.8185082","14":"0.9955632","15":"0.9999213","16":"1.2e-05","17":"7e-06","18":"6e-06","19":"5e-06","20":"3e-06","21":"2e-06","22":"1e-06","23":"0.0e+00","24":"0.000001","25":"0.000002","26":"0.000017","27":"1.000000e-06","28":"0.12723040","29":"8.361962e-06","30":"6.029745"},{"1":"ENSG00000100106","2":"38093055","3":"38172563","4":"1e+05","5":"306","6":"33","7":"0.07543273","8":"0.004017164","9":"0.182403345","10":"1.644721e-04","11":"0.183774438","12":"1.192966e-04","13":"-0.5358168","14":"0.8424779","15":"0.9998876","16":"5.0e-06","17":"4e-06","18":"4e-06","19":"2e-06","20":"1e-06","21":"0e+00","22":"2e-06","23":"2.0e-06","24":"0.000002","25":"0.000002","26":"0.000010","27":"1.000000e-06","28":"0.18520849","29":"6.061347e-06","30":"3.937670"},{"1":"ENSG00000099889","2":"19957419","3":"20004346","4":"1e+05","5":"557","6":"78","7":"0.07523664","8":"0.002473111","9":"0.032550437","10":"2.179089e-04","11":"0.033018060","12":"2.157304e-04","13":"0.4148772","14":"0.9821839","15":"0.9998227","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000002","26":"0.000105","27":"1.000000e-06","28":"0.26526848","29":"5.454176e-07","30":"10.116671"},{"1":"ENSG00000183172","2":"42475695","3":"42480288","4":"1e+05","5":"176","6":"19","7":"0.07798482","8":"0.001976531","9":"0.204283762","10":"1.163780e-04","11":"0.209322404","12":"1.265416e-04","13":"0.3174182","14":"0.6917252","15":"0.9999105","16":"1.0e-06","17":"1e-06","18":"1e-06","19":"1e-06","20":"2e-06","21":"3e-06","22":"7e-06","23":"3.6e-05","24":"0.000332","25":"0.003488","26":"0.038664","27":"2.196796e-06","28":"0.38291784","29":"1.880965e-06","30":"2.199980"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["gene"],"name":[1],"type":["chr"],"align":["left"]},{"label":["start"],"name":[2],"type":["int"],"align":["right"]},{"label":["end"],"name":[3],"type":["int"],"align":["right"]},{"label":["window"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[5],"type":["int"],"align":["right"]},{"label":["k"],"name":[6],"type":["int"],"align":["right"]},{"label":["s1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["s2"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["h1_init"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["h2_init"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["h1"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["h2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["r"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["sigma1_sq"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["sigma2_sq"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval00"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval01"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval02"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval03"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval04"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval05"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval06"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval07"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval08"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval09"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["vin_var_pval10"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["vin_var_test"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["vin_corr_test"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["skat"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["time"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"ENSG00000183597","2":"20004537","3":"20054687","4":"1e+05","5":"540","6":"70","7":"0.09789289","8":"0.002183079","9":"0.072845255","10":"2.932089e-04","11":"0.075902316","12":"3.244911e-04","13":"0.6582394","14":"0.9525188","15":"0.9997870","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000000","26":"0.000003","27":"1.000000e-06","28":"0.01323238","29":"1.657486e-07","30":"10.623802"},{"1":"ENSG00000183066","2":"42394729","3":"42454460","4":"1e+05","5":"404","6":"33","7":"0.05376159","8":"0.002760461","9":"0.003576574","10":"8.294245e-05","11":"0.003345243","12":"5.505347e-05","13":"0.8185082","14":"0.9955632","15":"0.9999213","16":"1.2e-05","17":"7e-06","18":"6e-06","19":"5e-06","20":"3e-06","21":"2e-06","22":"1e-06","23":"0.0e+00","24":"0.000001","25":"0.000002","26":"0.000017","27":"1.000000e-06","28":"0.12723040","29":"8.361962e-06","30":"4.720716"},{"1":"ENSG00000100106","2":"38093055","3":"38172563","4":"1e+05","5":"306","6":"33","7":"0.07543273","8":"0.004017164","9":"0.182403345","10":"1.644721e-04","11":"0.183774438","12":"1.192966e-04","13":"-0.5358168","14":"0.8424779","15":"0.9998876","16":"5.0e-06","17":"4e-06","18":"4e-06","19":"2e-06","20":"1e-06","21":"0e+00","22":"2e-06","23":"2.0e-06","24":"0.000002","25":"0.000002","26":"0.000010","27":"1.000000e-06","28":"0.18520849","29":"6.061347e-06","30":"3.977130"},{"1":"ENSG00000099889","2":"19957419","3":"20004346","4":"1e+05","5":"557","6":"78","7":"0.07523664","8":"0.002473111","9":"0.032550437","10":"2.179089e-04","11":"0.033018060","12":"2.157304e-04","13":"0.4148772","14":"0.9821839","15":"0.9998227","16":"0.0e+00","17":"0e+00","18":"0e+00","19":"0e+00","20":"0e+00","21":"0e+00","22":"0e+00","23":"0.0e+00","24":"0.000000","25":"0.000002","26":"0.000105","27":"1.000000e-06","28":"0.26526848","29":"5.454176e-07","30":"7.807789"},{"1":"ENSG00000183172","2":"42475695","3":"42480288","4":"1e+05","5":"176","6":"19","7":"0.07798482","8":"0.001976531","9":"0.204283762","10":"1.163780e-04","11":"0.209322404","12":"1.265416e-04","13":"0.3174182","14":"0.6917252","15":"0.9999105","16":"1.0e-06","17":"1e-06","18":"1e-06","19":"1e-06","20":"2e-06","21":"3e-06","22":"7e-06","23":"3.6e-05","24":"0.000332","25":"0.003488","26":"0.038664","27":"2.196796e-06","28":"0.38291784","29":"1.880965e-06","30":"2.469608"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <br>
